@@ -1,0 +1,50 @@
+{
+  "name": "gene/doddle",
+  "type": "magento-module",
+  "description": "Gene Doddle module.",
+  "license": "proprietary",
+  "require": {
+    "magento-hackathon/magento-composer-installer": "*"
+  },
+  "extra": {
+    "map": [
+      [
+        "app/code/community/Gene/Doddle",
+        "app/code/community/Gene/Doddle"
+      ],
+      [
+        "app/design/adminhtml/default/default/template/gene/doddle",
+        "app/design/adminhtml/default/default/template/gene/doddle"
+      ],
+      [
+        "app/design/frontend/base/default/layout/gene/doddle.xml",
+        "app/design/frontend/base/default/layout/gene/doddle.xml"
+      ],
+      [
+        "app/design/frontend/base/default/template/gene/doddle",
+        "app/design/frontend/base/default/template/gene/doddle"
+      ],
+      [
+        "app/etc/modules/Gene_Doddle.xml",
+        "app/etc/modules/Gene_Doddle.xml"
+      ],
+      [
+        "skin/frontend/base/default/css/gene/doddle",
+        "skin/frontend/base/default/css/gene/doddle"
+      ],
+      [
+        "skin/frontend/base/default/images/gene/doddle",
+        "skin/frontend/base/default/images/gene/doddle"
+      ],
+      [
+        "skin/frontend/rwd/default/css/gene/doddle",
+        "skin/frontend/rwd/default/css/gene/doddle"
+      ],
+      [
+        "js/gene/doddle",
+        "js/gene/doddle"
+      ]
+    ]
+  }
+}
+
