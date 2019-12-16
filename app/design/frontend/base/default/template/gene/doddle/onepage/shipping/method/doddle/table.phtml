@@ -1,0 +1,69 @@
+<?php
+/* @var $this Gene_Doddle_Block_Onepage_Shipping_Method_Doddle_Table */
+?>
+<?php if($this->getStores()): ?>
+    <table id="doddle-stores" width="100%" cellspacing="0">
+        <thead>
+        <tr>
+            <th colspan="2"><?php echo $this->__('Store Address'); ?></th>
+            <th><?php echo $this->__('Dist.'); ?></th>
+            <th><?php echo $this->__('Collection Date'); ?></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php
+        /* @var $store Gene_Doddle_Model_Store */
+        foreach($this->getStores() as $store): ?>
+            <tr>
+                <td class="input"><input type="radio" name="doddle-store" id="store-<?php echo $store->getId(); ?>" value="<?php echo $store->getId(); ?>" class="validate-doddle" /></td>
+                <td width="45%">
+                    <label for="store-<?php echo $store->getId(); ?>"><?php echo $store->getName(); ?></label>
+                    <?php if($address = $store->getAddress()): ?>
+                    <address>
+                        <label for="store-<?php echo $store->getId(); ?>"><?php echo $address; ?></label>
+                    </address>
+                    <?php endif; ?>
+                </td>
+                <td width="15%"><?php echo $store->getDistance(); ?> mi</td>
+                <td width="32%"><?php echo $this->getCollectionDate(); ?></td>
+                <td width="8%" class="more-information-td">
+                    <a href="#" title="More Information" class="doddle-info">i</a>
+                    <div class="more-information">
+                        <?php if($openingTimes = $store->getOpeningTimes()): ?>
+                            <div class="opening-times">
+                                <h3><?php echo $this->__('Opening Times:'); ?></h3>
+                                <table width="100%" class="opening-times-table">
+                                    <?php foreach($openingTimes as $openingTime): ?>
+                                        <tr>
+                                            <th><?php echo $openingTime['label']; ?></th>
+                                            <td>
+                                                <?php if($openingTime['value'] === false): ?>
+                                                    <strong><?php echo $this->__('CLOSED'); ?></strong>
+                                                <?php else: ?>
+                                                    <?php echo $openingTime['value']; ?>
+                                                <?php endif; ?>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </table>
+                            </div>
+                        <?php endif; ?>
+                        <div class="doddle-map">
+                            <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?q=<?php echo $store->getLat(); ?>,<?php echo $store->getLong(); ?>&z=14&output=embed"></iframe>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+<?php else: ?>
+    <ul class="messages">
+        <li class="error-msg">
+            <ul>
+                <li><?php echo $this->__('Our Doddle service is currently unavailable, please try using an alternative shipping method.'); ?></li>
+            </ul>
+        </li>
+    </ul>
+<?php endif; ?>

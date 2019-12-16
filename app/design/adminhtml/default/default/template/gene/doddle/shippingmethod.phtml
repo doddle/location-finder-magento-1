@@ -1,0 +1,34 @@
+<?php /** @var $this Gene_Doddle_Block_Adminhtml_Sales_Order_View_Shippingmethod */ ?>
+<?php $_order = $this->getOrder() ?>
+
+<?php  if ($_order->getTracksCollection()->count()) : ?>
+    <a href="#" id="linkId" onclick="popWin('<?php echo $this->helper('shipping')->getTrackingPopupUrlBySalesModel($_order) ?>','trackorder','width=800,height=600,resizable=yes,scrollbars=yes')" title="<?php echo $this->__('Track Order') ?>"><?php echo $this->__('Track Order') ?></a>
+    <br/>
+<?php endif; ?>
+<?php if ($_order->getShippingDescription()): ?>
+
+    <!-- Include our Doddle logo -->
+    <img src="https://i.imgur.com/UuuzRzF.png" width="120" style="margin: 2px 0 8px 0;" border="0"/><br />
+    <strong><?php echo $this->__('Collection from: %s', $_order->getShippingAddress()->getName()); ?></strong>
+
+    <?php if ($this->helper('tax')->displayShippingPriceIncludingTax()): ?>
+        <?php $_excl = $this->displayShippingPriceInclTax($_order); ?>
+    <?php else: ?>
+        <?php $_excl = $this->displayPriceAttribute('shipping_amount', false, ' '); ?>
+    <?php endif; ?>
+    <?php $_incl = $this->displayShippingPriceInclTax($_order); ?>
+
+    <?php echo $_excl; ?>
+    <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
+        (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
+    <?php endif; ?>
+
+    <?php if($preAdvices = $this->getPreAdvices()): ?>
+        <?php foreach($preAdvices as $preAdvice): ?>
+            <br /><strong><?php echo $this->__('Pre-advice ID:'); ?></strong> <?php echo $preAdvice->getPreadviceId(); ?>
+        <?php endforeach; ?>
+    <?php endif; ?>
+
+<?php else: ?>
+    <?php echo $this->helper('sales')->__('No shipping information available'); ?>
+<?php endif; ?>

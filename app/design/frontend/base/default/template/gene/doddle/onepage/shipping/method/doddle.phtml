@@ -1,0 +1,115 @@
+<?php
+/* @var $this Gene_Doddle_Block_Onepage_Shipping_Method_Doddle */
+?>
+<div id="doddle-box"<?php echo (!$this->onlyDoddle() ? ' style="display: none;"' : ''); ?>>
+
+    <?php if($this->onlyDoddle()): ?>
+        <div style="display: none;">
+            <input name="shipping_method" type="radio" value="<?php echo Mage::helper('gene_doddle')->getShippingMethodCode(); ?>" id="s_method_<?php echo Mage::helper('gene_doddle')->getShippingMethodCode(); ?>" checked="checked" class="radio" />
+        </div>
+    <?php endif; ?>
+
+    <div class="doddle-header">
+        <img src="<?php echo $this->getSkinUrl('images/gene/doddle/logo.png'); ?>" class="doddle-logo" />
+
+        <?php if($moreInformation = $this->getMoreInformation()): ?>
+            <a href="#" class="whats-this"><?php echo $this->__('what\'s this?'); ?></a>
+            <div id="doddle-more-information" style="display: none;">
+                <?php echo $moreInformation; ?>
+            </div>
+        <?php endif; ?>
+    </div>
+
+    <h3>
+        <?php echo $this->__('Find your nearest Doddle collection point'); ?>
+        <?php if($this->getPrice() == 0): ?>
+            <?php echo $this->__(' - <strong>FREE</strong>'); ?>
+        <?php else: ?>
+            <?php echo $this->__(' - Only %s', '<strong>' . $this->getFormattedPrice() . '</strong>'); ?>
+        <?php endif; ?>
+    </h3>
+
+    <ul class="messages" style="display: none;">
+        <li class="error-msg">
+            <ul>
+
+            </ul>
+        </li>
+    </ul>
+
+    <div class="doddle-search">
+        <button type="button" class="button doddle-search-button" onclick="return doddle.getCurrentPosition(this);"><span><span><?php echo $this->__('Use my current location'); ?></span></span></button>
+        <span class="doddle-or"><?php echo $this->__('or'); ?></span>
+        <div class="doddle-search-form">
+            <input type="text" name="search" class="doddle-search-input" id="doddle-search-input" placeholder="Enter city or postcode" />
+            <button type="button" class="button doddle-search-button" id="doddle-search-button" onclick="return doddle.getPositionFromAddress($('doddle-search-input').value, this);"><span><span><?php echo $this->__('Search'); ?></span></span></button>
+        </div>
+    </div>
+
+    <div class="hidden-validation">
+        <input type="radio" name="doddle-store" id="store-empty" value="" class="validate-doddle" />
+    </div>
+
+    <div id="doddle-table">
+        <!-- This is populated via an Ajax request -->
+    </div>
+</div>
+
+<script type="text/javascript">
+    // Observe shipping method choices
+    doddle.observeShippingMethods();
+
+    // Stop hitting submit taking you to the next step
+    doddle.handleSubmit();
+
+    <?php if($this->onlyDoddle()): ?>
+        if($('shipping-progress-opcheckout') != undefined) {
+            $('shipping-progress-opcheckout').hide();
+        }
+    <?php endif; ?>
+
+    // Hover on whats this
+    if($$('.whats-this').first() != undefined) {
+
+        // Assign our variable
+        var whatsThisTimeout;
+
+        // Observe the mouse over
+        Element.observe($$('.whats-this').first(), 'mouseover', function() {
+            clearTimeout(whatsThisTimeout);
+            $('doddle-more-information').show();
+        });
+
+        // Check mouseout
+        Element.observe($$('.whats-this').first(), 'mouseout', function() {
+            whatsThisTimeout = setTimeout(function() {
+                $('doddle-more-information').hide();
+            }, 250);
+        });
+
+        // Observe the mouse over
+        Element.observe('doddle-more-information', 'mouseover', function() {
+            clearTimeout(whatsThisTimeout);
+            $('doddle-more-information').show();
+        });
+
+        Element.observe('doddle-more-information', 'mouseout', function() {
+            whatsThisTimeout = setTimeout(function() {
+                $('doddle-more-information').hide();
+            }, 250);
+        });
+
+    }
+
+    // Add our new validation type
+    Validation.add('validate-doddle', '<?php echo $this->__('Please select your Doddle collection store to continue.'); ?>', function(v) {
+
+        // Check to see whether a method has been selected
+        if($$('[name=doddle-store]:checked').first() == undefined) {
+            doddle.throwError('<?php echo $this->__('Please select your Doddle collection store to continue.'); ?>');
+            return false;
+        }
+
+        return true;
+    });
+</script>

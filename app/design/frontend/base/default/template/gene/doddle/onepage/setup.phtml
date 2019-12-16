@@ -1,0 +1,12 @@
+<?php if($googleApiKey = $this->getGoogleApiKey()): ?>
+<script type="text/javascript"
+        src="https://maps.googleapis.com/maps/api/js?key=<?php echo $googleApiKey; ?>">
+</script>
+<?php endif; ?>
+
+<script type="text/javascript">
+    var doddle = new Doddle(
+        '<?php echo $this->getDoddleShippingMethodValue(); ?>',
+        '<?php echo Mage::getUrl('doddle/index/getClosestLongLat', array('_secure' => true)); ?>'
+    );
+</script>

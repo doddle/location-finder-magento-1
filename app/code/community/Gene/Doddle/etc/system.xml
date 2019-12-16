@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <sections>
+        <carriers>
+            <groups>
+                <gene_doddle translate="label comment">
+                    <label>Doddle</label>
+                    <sort_order>2</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <comment><![CDATA[
+                        <img src="//i.imgur.com/UuuzRzF.png" width="150" style="margin: 4px 0 8px 0;" border="0"/><br />Doddle integration provided by <a href="http://gene.co.uk/" target="_blank">Gene Commerce</a>.
+                    ]]></comment>
+                    <fields>
+
+                        <module_version translate="label">
+                            <label>Magento Module Version</label>
+                            <frontend_model>gene_doddle/adminhtml_system_config_doddle_moduleversion</frontend_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </module_version>
+
+                        <general translate="label">
+                            <label>Shipping Methods Settings</label>
+                            <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </general>
+
+                        <active translate="label">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </active>
+                        <title translate="label">
+                            <label>Title</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </title>
+                        <name translate="label">
+                            <label>Method Name</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>15</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </name>
+                        <more_information translate="label">
+                            <label>More Information</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[
+                                This information will be displayed in a tooltip on the billing step and the 'whats this?' link on the shipping methods panel.<br /><strong>Basic HTML allowed</strong>
+                            ]]></comment>
+                        </more_information>
+
+                        <price_heading translate="label">
+                            <label>Pricing</label>
+                            <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+                            <sort_order>25</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </price_heading>
+
+                        <price translate="label comment">
+                            <label>Price</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment><![CDATA[
+                                The total cost you wish to charge to the customer for using Doddle.
+                            ]]></comment>
+                        </price>
+
+                        <type translate="label comment">
+                            <label>Pricing Type</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_shipping_flatrate</source_model>
+                            <sort_order>31</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment><![CDATA[
+                                Do you wish to charge the customer for each item, or just as a whole order?
+                            ]]></comment>
+                        </type>
+
+                        <doddle_settings translate="label">
+                            <label>Doddle Settings</label>
+                            <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+                            <sort_order>35</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </doddle_settings>
+
+                        <retailer_id translate="label comment">
+                            <label>Retailer ID</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>36</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment><![CDATA[
+                                Your Doddle retailer ID, this would have been given to you by your Doddle representative.
+                            ]]></comment>
+                        </retailer_id>
+
+                        <environment>
+                            <label>Environment</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>gene_doddle/system_config_environment</source_model>
+                            <sort_order>37</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[
+                                The staging environment allows you to test your integration with Doddle before release.
+                            ]]></comment>
+                        </environment>
+
+                        <configure_api>
+                            <label>Configure API URLs</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>38</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[
+                                Enable this if you need to manually update the API endpoints. Invalid configuration of these URLs can stop the Doddle module from functioning.
+                            ]]></comment>
+                        </configure_api>
+
+                        <stores_api translate="label comment">
+                            <label>Store API URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>39</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment><![CDATA[
+                                The URL path for the staging API. (eg. https://api.doddle.it/v1/)
+                            ]]></comment>
+                            <depends>
+                                <configure_api>1</configure_api>
+                            </depends>
+                        </stores_api>
+
+                        <staging_api translate="label comment">
+                            <label>Pre-Advice Staging API URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment><![CDATA[
+                                The URL path for the staging API. (eg. https://stage-apigw.doddle.it/v1/)
+                            ]]></comment>
+                            <depends>
+                                <configure_api>1</configure_api>
+                            </depends>
+                        </staging_api>
+
+                        <production_api translate="label comment">
+                            <label>Pre-Advice Production API URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>41</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment><![CDATA[
+                                The URL path for the production API. (eg. https://apigw.doddle.it/v1/)
+                            ]]></comment>
+                            <depends>
+                                <configure_api>1</configure_api>
+                            </depends>
+                        </production_api>
+
+                        <api_key translate="label comment">
+                            <label>API Key</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>42</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[
+                                The API key for accessing Doddle's API.
+                            ]]></comment>
+                        </api_key>
+
+                        <api_secret translate="label comment">
+                            <label>API Secret</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>43</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[
+                                The API secret for accessing Doddle's API.
+                            ]]></comment>
+                        </api_secret>
+
+                        <api_scope>
+                            <label>API Scope</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>44</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[
+                                Any additional scope which is needed when communicating with the Doddle API. These should be separated by a space (eg. retailer_Store)
+                            ]]></comment>
+                        </api_scope>
+
+                        <collection_lead_time translate="label comment">
+                            <label>Collection Lead Time</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>45</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment><![CDATA[
+                                The amount of days it will take for the customers order to be available at their selected Doddle store.
+                            ]]></comment>
+                        </collection_lead_time>
+
+                        <google_settings translate="label">
+                            <label>Google API Settings</label>
+                            <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </google_settings>
+
+                        <google_api_key translate="label comment">
+                            <label>Google Maps JavaScript API Key</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>55</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment><![CDATA[
+                                To best determine the users location from their address we require a API key from Google to utilise their Geocoding API's. Please see the API key section of <a href="https://developers.google.com/maps/documentation/geocoding/" target="_blank">this guide</a> for more information.
+                            ]]></comment>
+                        </google_api_key>
+
+                        <resitrctions translate="label">
+                            <label>Restrictions</label>
+                            <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+                            <sort_order>100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </resitrctions>
+
+                        <sallowspecific translate="label">
+                            <label>Available for specific countries only</label>
+                            <frontend_type>select</frontend_type>
+                            <frontend_class>shipping-applicable-country</frontend_class>
+                            <source_model>adminhtml/system_config_source_shipping_allspecificcountries</source_model>
+                            <sort_order>105</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </sallowspecific>
+                        <specificcountry translate="label">
+                            <label>Ship to Specific Countries</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <sort_order>110</sort_order>
+                            <source_model>adminhtml/system_config_source_country</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <can_be_empty>1</can_be_empty>
+                        </specificcountry>
+                    </fields>
+                </gene_doddle>
+            </groups>
+        </carriers>
+    </sections>
+</config>

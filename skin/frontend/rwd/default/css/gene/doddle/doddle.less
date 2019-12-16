@@ -1,0 +1,305 @@
+@font-face {
+    font-family: 'doddle-icon';
+    src:url('fonts/doddle-icon.eot?-s7vh28');
+    src:url('fonts/doddle-icon.eot?#iefix-s7vh28') format('embedded-opentype'),
+    url('fonts/doddle-icon.woff?-s7vh28') format('woff'),
+    url('fonts/doddle-icon.ttf?-s7vh28') format('truetype'),
+    url('fonts/doddle-icon.svg?-s7vh28#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.form-list {
+    .control {
+        &.doddle-control {
+            vertical-align: middle;
+            line-height: 21px;
+            position: relative;
+
+            label {
+
+                .ship-to {
+                    float: left;
+                }
+
+                img.doddle-logo {
+                    margin-left: 6px;
+                    float: left;
+                    height: 18px;
+                }
+            }
+
+            &:hover {
+                .doddle-billing-more-information {
+                    visibility: visible;
+                    opacity: 1;
+                    transition-delay: 0s;
+                }
+            }
+
+            .doddle-billing-more-information {
+                visibility: hidden;
+                opacity: 0;
+                transition: visibility 0s ease-in-out 0.15s, opacity 0.15s ease-in-out;
+
+                position: absolute;
+                left: 0;
+                right: -200px;
+                bottom: 100%;
+                width: 400px;
+                background: white;
+                border: 1px solid #dbdbdb;
+                padding: 16px;
+
+                &:hover {
+                    visibility: visible;
+                    opacity: 1;
+                    transition-delay: 0s;
+                }
+            }
+
+        }
+    }
+}
+
+#doddle-box {
+    width: 100%;
+    padding: 20px 24px;
+    background: #f4f4f4;
+    margin-bottom: 16px;
+
+    .doddle-header {
+        float: left;
+        width: 100%;
+
+        .doddle-logo {
+            height: 40px;
+            margin-bottom: 12px;
+            margin-top: 4px;
+            display: inline;
+        }
+
+        .whats-this {
+            line-height: 44px;
+            display: inline;
+            vertical-align: text-bottom;
+            margin-left: 4px;
+        }
+
+        #doddle-more-information {
+            float: left;
+            width: 100%;
+            background: white;
+            padding: 14px 18px;
+            margin: 0 0 14px 0;
+        }
+    }
+
+
+    ul.messages {
+        margin: 8px 0 12px 0;
+    }
+
+    .hidden-validation {
+        display: none;
+    }
+
+    table {
+
+        text-align: left;
+        margin: 8px 0;
+
+        td.input {
+            text-align: center;
+
+            .validation-advice {
+                display: none;
+            }
+        }
+
+        td, th {
+            padding: 8px 10px;
+            border-bottom: 2px solid #dbdbdb;
+        }
+
+        td {
+            label {
+                display: block;
+                width: 100%;
+            }
+        }
+
+        th {
+            font-family: "Raleway", "Helvetica Neue", Verdana, Arial, sans-serif;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+        address {
+            font-size: 90%;
+        }
+
+        .more-information-td {
+            position: relative;
+
+            .doddle-info {
+                font-family: 'doddle-icon';
+                speak: none;
+                font-style: normal;
+                font-weight: normal;
+                font-variant: normal;
+                text-transform: none;
+                line-height: 1;
+                font-size: 18px;
+                text-decoration: none;
+
+                /* Better Font Rendering =========== */
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+
+                &:hover + .more-information {
+                    visibility: visible;
+                    opacity: 1;
+                    transition-delay: 0s;
+                }
+            }
+
+            .more-information {
+                visibility: hidden;
+                opacity: 0;
+                transition: visibility 0s ease-in-out 0.15s, opacity 0.15s ease-in-out;
+
+                background: white;
+                border: 1px solid #dbdbdb;
+                padding: 16px;
+                position: absolute;
+                left: -220px;
+                bottom: 90%;
+                right: -220px;
+
+                .opening-times {
+                    float: left;
+                    width: 47.5%;
+                    margin-right: 2.5%;
+                }
+
+                .doddle-map {
+                    float: left;
+                    width: 47.5%;
+                    margin-left: 2.5%;
+                }
+
+                table {
+                    width: 100%;
+
+                    &.opening-times-table {
+                        td, th {
+                            padding: 4px 5px;
+                            border-bottom: 2px solid #f4f4f4;
+                        }
+
+                        td {
+                            text-align: right;
+                        }
+                    }
+                }
+
+                &:hover {
+                    visibility: visible;
+                    opacity: 1;
+                    transition-delay: 0s;
+                }
+            }
+        }
+    }
+
+    .doddle-search {
+        margin: 8px 0;
+
+        .doddle-search-button {
+            margin-right: 8px;
+        }
+
+        .doddle-search-form {
+            display: inline-block;
+            *zoom: 1;
+            *display: inline;
+        }
+
+        .doddle-search-input {
+            margin-left: 8px;
+            text-transform: uppercase;
+            max-width: 250px;
+            height: 33px;
+        }
+    }
+
+    .button.loading {
+        background: white url('../../../images/opc-ajax-loader.gif') center center no-repeat;
+        background-size: 24px 24px;
+
+        span {
+            opacity: 0;
+        }
+    }
+}
+
+.doddle-sidebar-logo {
+    margin: 10px 0 8px 0;
+    width: 120px;
+}
+
+
+@media only screen and (max-width: 980px) {
+
+    #doddle-box {
+
+        table {
+
+            .more-information-td {
+
+                .more-information {
+                    left: -440px;
+                    right: 0;
+                }
+
+            }
+
+        }
+
+    }
+
+}
+
+@media only screen and (max-width: 680px) {
+
+    #doddle-box {
+        .doddle-search {
+
+            .doddle-search-button {
+                display: block;
+                width: 100%;
+                margin: 6px 0;
+            }
+
+            .doddle-or {
+                display: block;
+                width: 100%;
+                text-align: center;
+            }
+
+            .doddle-search-form {
+                display: block;
+                width: 100%;
+
+                .doddle-search-input {
+                    margin: 6px 0 2px 0;
+                    width: 100%;
+                    display: block;
+                    max-width: none;
+                }
+            }
+
+        }
+    }
+}

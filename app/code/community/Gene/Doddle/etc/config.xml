@@ -1,0 +1,206 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Gene_Doddle>
+            <version>1.0.1</version>
+        </Gene_Doddle>
+    </modules>
+
+    <global>
+        <models>
+            <gene_doddle>
+                <class>Gene_Doddle_Model</class>
+                <resourceModel>gene_doddle_resource</resourceModel>
+            </gene_doddle>
+            <gene_doddle_resource>
+                <class>Gene_Doddle_Model_Resource</class>
+                <entities>
+                    <request>
+                        <table>gene_doddle_request</table>
+                    </request>
+                </entities>
+            </gene_doddle_resource>
+        </models>
+
+        <blocks>
+            <gene_doddle>
+                <class>Gene_Doddle_Block</class>
+            </gene_doddle>
+        </blocks>
+
+        <helpers>
+            <gene_doddle>
+                <class>Gene_Doddle_Helper</class>
+            </gene_doddle>
+        </helpers>
+
+        <resources>
+            <gene_doddle_setup>
+                <setup>
+                    <module>Gene_Doddle</module>
+                    <class>Mage_Sales_Model_Resource_Setup</class>
+                </setup>
+            </gene_doddle_setup>
+        </resources>
+
+        <events>
+
+            <!-- Capture shipment information being adding into the shipment -->
+            <sales_order_shipment_save_before>
+                <observers>
+                    <gene_doddle_inform_doddle>
+                        <type>singleton</type>
+                        <class>gene_doddle/observer</class>
+                        <method>informDoddle</method>
+                    </gene_doddle_inform_doddle>
+                </observers>
+            </sales_order_shipment_save_before>
+
+        </events>
+    </global>
+
+    <frontend>
+        <layout>
+            <updates>
+                <gene_doddle module="Gene_Doddle">
+                    <file>gene/doddle.xml</file>
+                </gene_doddle>
+            </updates>
+        </layout>
+
+        <routers>
+            <doddle>
+                <use>standard</use>
+                <args>
+                    <module>Gene_Doddle</module>
+                    <frontName>doddle</frontName>
+                </args>
+            </doddle>
+        </routers>
+
+        <events>
+
+            <!-- Enable user to skip shipping information step -->
+            <core_block_abstract_to_html_after>
+                <observers>
+                    <gene_doddle_shipping_method>
+                        <class>gene_doddle/observer</class>
+                        <method>insertShipToDoddle</method>
+                    </gene_doddle_shipping_method>
+                </observers>
+            </core_block_abstract_to_html_after>
+
+            <controller_action_predispatch_checkout_onepage_saveBilling>
+                <observers>
+                    <gene_doddle_skip_shipping>
+                        <class>gene_doddle/observer</class>
+                        <method>skipShippingInformation</method>
+                    </gene_doddle_skip_shipping>
+                </observers>
+            </controller_action_predispatch_checkout_onepage_saveBilling>
+
+            <!-- Insert the Doddle mark up after the available shipping methods -->
+            <core_block_abstract_to_html_after>
+                <observers>
+                    <gene_doddle_insert_checkout>
+                        <type>singleton</type>
+                        <class>gene_doddle/observer</class>
+                        <method>insertDoddleMarkup</method>
+                    </gene_doddle_insert_checkout>
+                </observers>
+            </core_block_abstract_to_html_after>
+
+            <!-- Alter the progress block on the default Enterprise checkout -->
+            <core_block_abstract_to_html_before>
+                <observers>
+                    <gene_doddle_change_progress>
+                        <type>singleton</type>
+                        <class>gene_doddle/observer</class>
+                        <method>modifyShippingMethodProgress</method>
+                    </gene_doddle_change_progress>
+                </observers>
+            </core_block_abstract_to_html_before>
+
+            <!-- When the user saved the shipping method capture the selected store -->
+            <checkout_controller_onepage_save_shipping_method>
+                <observers>
+                    <gene_doddle_capture_store>
+                        <type>singleton</type>
+                        <class>gene_doddle/observer</class>
+                        <method>captureStoreSelection</method>
+                    </gene_doddle_capture_store>
+                </observers>
+            </checkout_controller_onepage_save_shipping_method>
+
+            <!-- Just before the quote is submitted we want to swap the shipping address to the Doddle store -->
+            <sales_model_service_quote_submit_success>
+                <observers>
+                    <gene_doddle_swap_address>
+                        <type>singleton</type>
+                        <class>gene_doddle/observer</class>
+                        <method>changeToDoddleAddress</method>
+                    </gene_doddle_swap_address>
+                </observers>
+            </sales_model_service_quote_submit_success>
+
+        </events>
+    </frontend>
+
+    <adminhtml>
+        <events>
+
+            <!-- Modify the shipping method information within the admin -->
+            <core_block_abstract_to_html_after>
+                <observers>
+                    <gene_doddle_shipping_method>
+                        <class>gene_doddle/observer</class>
+                        <method>replaceShippingMethodInfo</method>
+                    </gene_doddle_shipping_method>
+                </observers>
+            </core_block_abstract_to_html_after>
+
+        </events>
+    </adminhtml>
+
+    <!-- Basic setup for our shipping method -->
+    <default>
+        <carriers>
+            <gene_doddle>
+                <active>0</active>
+                <model>gene_doddle/carrier</model>
+                <title>Collect from your local train station</title>
+
+                <name>Doddle</name>
+                <more_information><![CDATA[<h3>What is Doddle?</h3><p>Doddle fits in with your life. No more waiting. No more missed deliveries. With Doddle shops in and around train stations you can Doddle (our language for collecting, sending or returning) your parcel on the way to, or from, work, while you’re out shopping or simply whenever you’re passing.</p>]]></more_information>
+                <type>I</type>
+                <price>5.00</price>
+                <collection_lead_time>2</collection_lead_time>
+
+                <environment>staging</environment>
+
+                <stores_api><![CDATA[https://api.doddle.it/v1/]]></stores_api>
+                <staging_api><![CDATA[https://stage-apigw.doddle.it/v1/]]></staging_api>
+                <production_api><![CDATA[https://apigw.doddle.it/v1/]]></production_api>
+
+                <!-- We force this shipping method to be last to be next to our injected block -->
+                <sort_order>9999999999</sort_order>
+
+                <sallowspecific>0</sallowspecific>
+            </gene_doddle>
+        </carriers>
+    </default>
+
+    <crontab>
+        <jobs>
+            <gene_doddle_queue>
+                <schedule>
+                    <cron_expr>*/30 * * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>gene_doddle/observer::runQueue</model>
+                </run>
+            </gene_doddle_queue>
+        </jobs>
+    </crontab>
+
+</config>

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+
+    <checkout_onepage_index>
+        <reference name="head">
+            <action method="addJs">
+                <file>gene/doddle/doddle.js</file>
+            </action>
+            <action method="addItem"><type>skin_css</type><file>css/gene/doddle/doddle.css</file></action>
+        </reference>
+        <reference name="before_body_end">
+            <block type="gene_doddle/onepage_setup" name="gene.doddle.setup"
+                   template="gene/doddle/onepage/setup.phtml"/>
+        </reference>
+    </checkout_onepage_index>
+
+    <doddle_index_getclosestlonglat>
+
+        <remove name="right"/>
+        <remove name="left"/>
+        <remove name="footer"/>
+
+        <block type="gene_doddle/onepage_shipping_method_doddle_table" name="root" output="toHtml"
+               template="gene/doddle/onepage/shipping/method/doddle/table.phtml" />
+
+    </doddle_index_getclosestlonglat>
+
+</layout>
