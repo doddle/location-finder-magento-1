@@ -7,25 +7,33 @@
  */
 class Gene_Doddle_Model_Store extends Varien_Object
 {
+    protected $_idFieldName = 'companyStoreId';
 
     /**
      * Return a formatted version of the address
+     * @dodo align with stores v3 data
      *
      * @return bool|string
      */
     public function getAddress()
     {
         if($this->getId()) {
-
             // Grab the address from the stores data
-            $addressData = $this->getData('address');
+            $place = $this->getData('place');
+
+            // @todo is "place" a 1-to-1 relationship with store ?
+            $addressData = reset($place);
 
             // Build up an array of address elements
             $addressElements = array();
 
-            // Implode the street address
-            if(isset($addressData['streetAddress']) && is_array($addressData['streetAddress'])) {
-                $addressElements = array_filter($addressData['streetAddress']);
+            // Add the street address
+            if(isset($addressData['line1'])) {
+                $addressElements[] = $addressData['line1'];
+            }
+
+            if(isset($addressData['line2'])) {
+                $addressElements[] = $addressData['line2'];
             }
 
             // Include the town

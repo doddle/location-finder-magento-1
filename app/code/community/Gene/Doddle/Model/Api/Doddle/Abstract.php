@@ -234,4 +234,15 @@ abstract class Gene_Doddle_Model_Api_Doddle_Abstract extends Mage_Core_Model_Abs
 
         return implode(' ', $scope);
     }
+
+    /**
+     * Get the current store ID
+     *
+     * @return int
+     * @throws Mage_Core_Model_Store_Exception
+     */
+    protected function getStoreId()
+    {
+        return Mage::app()->getStore()->getId();
+    }
 }

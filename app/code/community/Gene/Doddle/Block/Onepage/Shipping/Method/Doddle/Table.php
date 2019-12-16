@@ -18,13 +18,14 @@ class Gene_Doddle_Block_Onepage_Shipping_Method_Doddle_Table extends Mage_Core_B
     }
 
     /**
-     * Return the stores
+     * Return the closest stores to the searched lat/long
      *
      * @return array
      * @throws \Exception
      */
-    protected function getStores()
+    protected function getClosestStores()
     {
+        // @todo pass these params via controller?
         return $this->_getStoreApi()->getClosestStores($this->getRequest()->getParam('lat'), $this->getRequest()->getParam('long'));
     }
 

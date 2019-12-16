@@ -74,43 +74,45 @@ class Gene_Doddle_Model_Api_Doddle_Stores extends Gene_Doddle_Model_Api_Doddle_A
      */
     public function getClosestStores($lat, $long, $size = 5)
     {
-        // Push our location into an array
-        $userLocation = array($lat, $long);
+        $stores = array();
 
-        // Grab the stores
-        $stores = $this->getStores();
+        // Retrieve an access token from the API
+        if($accessToken = parent::getAccessToken($this->buildScope('stores:read', $this->getStoreId()))) {
 
-        // If we get no stores returned
-        if(empty($stores)) {
-            return false;
-        }
+            // Build up our authorization
+            $headers = array(
+                'Authorization' => 'Bearer ' . $accessToken,
+                'Content-Type' => 'application/json'
+            );
 
-        // Run through an array_map function
-        $distances = array_map(function($store) use($userLocation) {
-            $a = array($store['address']['lat'], $store['address']['long']);
-            return $this->distance($a, $userLocation);
-        }, $stores);
+            // @todo get size from config ?
+            // @todo include distance and unit here (also from config) ?
+            $call = sprintf(
+                'stores/latitude/%s/longitude/%s?companyId=%s&limit=%s',
+                $lat,
+                $long,
+                $this->getCompanyId(),
+                $size
+            );
 
-        // Sort correctly
-        asort($distances);
+            // Build our HTTP request
+            $http = $this->buildRequest($call, Varien_Http_Client::GET, false, false, $headers);
 
-        // Get the closest stores
-        $closestStores = array();
-        foreach($distances as $key => $distance) {
+            // Make the request
+            $response = parent::makeRequest($http);
 
-            // Add the distance into our array
-            $stores[$key]['distance'] = number_format($distance, 1);
-
-            // Add the store into our closestStores array
-            $closestStores[] = $stores[$key];
-
-            // Watch the size of the response
-            if(count($closestStores) == $size) {
-                break;
+            if ($response['resources']) {
+                foreach ($response['resources'] as $resource) {
+                    if ($resource['store']) {
+                        $stores[] = $resource['store'];
+                    }
+                }
             }
+        } else {
+            Mage::throwException('Unable to retrieve an access token from Doddle, please make sure the module\'s API settings are correctly configured.');
         }
 
-        return $this->createStoreCollection($closestStores);
+        return $this->createStoreCollection($stores);
     }
 
     /**
@@ -196,5 +198,13 @@ class Gene_Doddle_Model_Api_Doddle_Stores extends Gene_Doddle_Model_Api_Doddle_A
     protected function getCache()
     {
         return Mage::app()->getCache();
+    }
+
+    /**
+     * @return mixed
+     */
+    private function getCompanyId()
+    {
+        return Mage::getStoreConfig(self::RETAILED_ID_XML_PATH, $this->getStoreId());
     }
 }

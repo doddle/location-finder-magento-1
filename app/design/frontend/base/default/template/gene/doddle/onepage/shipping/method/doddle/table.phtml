@@ -1,7 +1,9 @@
 <?php
 /* @var $this Gene_Doddle_Block_Onepage_Shipping_Method_Doddle_Table */
+
+$closestStores = $this->getClosestStores();
 ?>
-<?php if($this->getStores()): ?>
+<?php if ($closestStores): ?>
     <table id="doddle-stores" width="100%" cellspacing="0">
         <thead>
         <tr>
@@ -14,7 +16,7 @@
         <tbody>
         <?php
         /* @var $store Gene_Doddle_Model_Store */
-        foreach($this->getStores() as $store): ?>
+        foreach ($closestStores as $store): ?>
             <tr>
                 <td class="input"><input type="radio" name="doddle-store" id="store-<?php echo $store->getId(); ?>" value="<?php echo $store->getId(); ?>" class="validate-doddle" /></td>
                 <td width="45%">
