@@ -104,6 +104,11 @@ class Gene_Doddle_Model_Api_Doddle_Stores extends Gene_Doddle_Model_Api_Doddle_A
             if ($response['resources']) {
                 foreach ($response['resources'] as $resource) {
                     if ($resource['store']) {
+                        // Move location info in to store data to ease retrieval from model
+                        // @todo review storing separately as per API response
+                        if ($resource['locationInfo']) {
+                            $resource['store']['locationInfo'] = $resource['locationInfo'];
+                        }
                         $stores[] = $resource['store'];
                     }
                 }
@@ -124,20 +129,38 @@ class Gene_Doddle_Model_Api_Doddle_Stores extends Gene_Doddle_Model_Api_Doddle_A
      */
     public function getStore($storeId, $returnData = false)
     {
-        // Retrieve the store from the API
-        $http = parent::buildRequest('stores/' . $storeId);
-        $store = parent::makeRequest($http);
+        // Retrieve an access token from the API
+        if($accessToken = parent::getAccessToken($this->buildScope('stores:read', $this->getStoreId()))) {
 
-        // If the store loads and isn't false
-        if($store) {
+            // Build up our authorization
+            $headers = array(
+                'Authorization' => 'Bearer ' . $accessToken,
+                'Content-Type' => 'application/json'
+            );
 
-            // Do we just want the data?
-            if($returnData) {
-                return $store;
+            $call = sprintf(
+                'stores/%s',
+                $storeId
+            );
+
+            // Build our HTTP request
+            $http = $this->buildRequest($call, Varien_Http_Client::GET, false, false, $headers);
+
+            // Retrieve the store from the API
+            $store = parent::makeRequest($http);
+
+            // If the store loads and isn't false
+            if($store) {
+                // Do we just want the data?
+                if($returnData) {
+                    return $store;
+                }
+
+                // Add the data into a model and return
+                return Mage::getModel('gene_doddle/store')->addData($store);
             }
-
-            // Add the data into a model and return
-            return Mage::getModel('gene_doddle/store')->addData($store);
+        } else {
+            Mage::throwException('Unable to retrieve an access token from Doddle, please make sure the module\'s API settings are correctly configured.');
         }
 
         return false;

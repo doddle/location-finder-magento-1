@@ -122,6 +122,7 @@ class Gene_Doddle_Model_Observer
             }
 
             // Set the store ID within the session
+            // @todo save full store data to session here ?
             Mage::getSingleton('checkout/session')->setDoddleStoreId($storeId)->setDoddleStoreName($store->getName());
 
         } else {
@@ -160,6 +161,7 @@ class Gene_Doddle_Model_Observer
                 Mage::throwException(Mage::helper('gene_doddle')->__('No store has been selected for collection from Doddle, please try again.'));
             }
 
+            // @todo retrieve full store data from session here ?
             // Load up the store
             /* @var $store Gene_Doddle_Model_Store */
             $store = Mage::getModel('gene_doddle/store')->load($storeId);

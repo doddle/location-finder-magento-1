@@ -7,7 +7,7 @@
  */
 class Gene_Doddle_Model_Store extends Varien_Object
 {
-    protected $_idFieldName = 'companyStoreId';
+    protected $_idFieldName = 'storeId';
 
     /**
      * Return a formatted version of the address
@@ -47,6 +47,15 @@ class Gene_Doddle_Model_Store extends Varien_Object
     }
 
     /**
+     * @todo refactor calls to this function and remove
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->getData('storeName');
+    }
+
+    /**
      * Return the stores latitude
      *
      * @return bool|mixed
@@ -54,10 +63,8 @@ class Gene_Doddle_Model_Store extends Varien_Object
     public function getLat()
     {
         if($this->getId()) {
-
             // Grab the address from the stores data
-            return $this->getData('address/lat');
-
+            return $this->getData('geo/lat');
         }
 
         return false;
@@ -71,10 +78,23 @@ class Gene_Doddle_Model_Store extends Varien_Object
     public function getLong()
     {
         if($this->getId()) {
-
             // Grab the address from the stores data
-            return $this->getData('address/long');
+            return $this->getData('geo/lon');
+        }
 
+        return false;
+    }
+
+    /**
+     * @todo return distance unit as part of this data
+     *
+     * @return bool|mixed
+     */
+    public function getDistance()
+    {
+        if($this->getId()) {
+            // Grab the distance from the stores data
+            return $this->getData('locationInfo/distance');
         }
 
         return false;
@@ -124,6 +144,7 @@ class Gene_Doddle_Model_Store extends Varien_Object
 
     /**
      * Return the stores opening times as a string
+     * @todo refactor for v3 data format
      *
      * @return bool|array
      */
@@ -175,8 +196,8 @@ class Gene_Doddle_Model_Store extends Varien_Object
     public function load($id)
     {
         $storeData = $this->getApi()->getStore($id, true);
-        if($storeData) {
-            $this->addData($storeData);
+        if($storeData && $storeData['resources']) {
+            $this->addData($storeData['resources']);
         }
 
         return $this;
