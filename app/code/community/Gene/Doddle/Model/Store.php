@@ -86,15 +86,16 @@ class Gene_Doddle_Model_Store extends Varien_Object
     }
 
     /**
-     * @todo return distance unit as part of this data
-     *
      * @return bool|mixed
      */
     public function getDistance()
     {
         if($this->getId()) {
-            // Grab the distance from the stores data
-            return $this->getData('locationInfo/distance');
+            // Grab the distance and unit from the stores data
+            return sprintf('%s %s',
+                $this->getData('locationInfo/distance'),
+                $this->getData('locationInfo/unit')
+            );
         }
 
         return false;

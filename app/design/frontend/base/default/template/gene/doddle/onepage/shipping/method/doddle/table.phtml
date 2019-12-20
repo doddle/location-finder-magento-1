@@ -27,8 +27,7 @@ $closestStores = $this->getClosestStores();
                     </address>
                     <?php endif; ?>
                 </td>
-                <!-- @todo remove hardcoded "mi" here and get from API response. -->
-                <td width="15%"><?php echo $store->getDistance(); ?> mi</td>
+                <td width="15%"><?php echo $store->getDistance(); ?></td>
                 <td width="32%"><?php echo $this->getCollectionDate(); ?></td>
                 <td width="8%" class="more-information-td">
                     <a href="#" title="More Information" class="doddle-info">i</a>
