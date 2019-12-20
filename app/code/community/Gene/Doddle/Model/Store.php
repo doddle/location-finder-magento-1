@@ -19,10 +19,7 @@ class Gene_Doddle_Model_Store extends Varien_Object
     {
         if($this->getId()) {
             // Grab the address from the stores data
-            $place = $this->getData('place');
-
-            // @todo is "place" a 1-to-1 relationship with store ?
-            $addressData = reset($place);
+            $addressData = $this->getData('place/address');
 
             // Build up an array of address elements
             $addressElements = array();
@@ -43,6 +40,7 @@ class Gene_Doddle_Model_Store extends Varien_Object
 
             return implode(', ', $addressElements);
         }
+
         return false;
     }
 
