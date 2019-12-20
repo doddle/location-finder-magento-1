@@ -11,7 +11,6 @@ class Gene_Doddle_Model_Store extends Varien_Object
 
     /**
      * Return a formatted version of the address
-     * @dodo align with stores v3 data
      *
      * @return bool|string
      */
@@ -52,18 +51,17 @@ class Gene_Doddle_Model_Store extends Varien_Object
      */
     public function getName()
     {
-        return $this->getData('storeName');
+        return (string) $this->getData('storeName');
     }
 
     /**
      * Return the stores latitude
      *
-     * @return bool|mixed
+     * @return bool|string
      */
     public function getLat()
     {
-        if($this->getId()) {
-            // Grab the address from the stores data
+        if ($this->getId()) {
             return $this->getData('geo/lat');
         }
 
@@ -73,26 +71,25 @@ class Gene_Doddle_Model_Store extends Varien_Object
     /**
      * Return the stores longitude
      *
-     * @return bool|mixed
+     * @return bool|string
      */
     public function getLong()
     {
-        if($this->getId()) {
-            // Grab the address from the stores data
-            return $this->getData('geo/lon');
+        if ($this->getId()) {
+            return (string) $this->getData('geo/lon');
         }
 
         return false;
     }
 
     /**
-     * @return bool|mixed
+     * @return bool|string
      */
     public function getDistance()
     {
-        if($this->getId()) {
+        if ($this->getId()) {
             // Grab the distance and unit from the stores data
-            return sprintf('%s %s',
+            return (string) sprintf('%s %s',
                 $this->getData('locationInfo/distance'),
                 $this->getData('locationInfo/unit')
             );
@@ -102,42 +99,55 @@ class Gene_Doddle_Model_Store extends Varien_Object
     }
 
     /**
-     * Return an array correctly formatted for Magento
+     * Return an array correctly formatted for Magento order
      *
      * @return array
      */
     public function getMagentoShippingAddress()
     {
-        if($this->getId()) {
-
-            // Grab the address from the stores data
-            $addressData = $this->getData('address');
-
-            // Build up an array of address elements
+        if ($this->getId()) {
             $address = array(
                 'firstname' => 'Doddle',
-                'lastname' => $this->getData('name'),
+                'lastname' => $this->getName(),
                 'company' => '',
-                'street' => implode("\n", array_filter($addressData['streetAddress'])),
-                'city' => $addressData['town'],
-                'region' => $addressData['county'],
-                'postcode' => $addressData['postCode'],
-                'country_id' => $addressData['countryCode'],
-                'telephone' => $this->getData('phoneNumber'),
+                'street' => $this->getStreetAddressString(),
+                'city' => $this->getData('place/address/town'),
+                'region' => $this->getData('place/address/area'),
+                'postcode' => $this->getData('place/address/postcode'),
+                'country_id' => $this->getData('place/address/country'),
+                'telephone' => $this->getData('place/phoneNumber'),
                 'doddle_store_id' => $this->getId(),
                 'same_as_billing' => 0,
                 'save_in_address_book' => 0
             );
 
             // Some data seems to just have comma's set, so attempt to cleanse these
-            foreach($address as $key => $addressItem) {
-                if($addressItem == ',') {
+            foreach ($address as $key => $addressItem) {
+                if ($addressItem == ',') {
                     $address[$key] = '';
                 }
             }
 
             return $address;
+        }
 
+        return false;
+    }
+
+
+    /**
+     * @return bool|string
+     */
+    private function getStreetAddressString()
+    {
+        if ($this->getData('place/address/line2')) {
+            return (string) sprintf(
+                '%s\n%s',
+                $this->getData('place/address/line1'),
+                $this->getData('place/address/line2')
+            );
+        } elseif ($this->getData('place/address/line1')) {
+            return (string) $this->getData('place/address/line1');
         }
 
         return false;
