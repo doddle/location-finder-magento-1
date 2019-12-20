@@ -47,7 +47,9 @@ class Gene_Doddle_Model_Store extends Varien_Object
     }
 
     /**
-     * @todo refactor calls to this function and remove
+     * Get store name.
+     * Can't use Varien magic getter due to formatting of API response fields
+     *
      * @return string
      */
     public function getName()

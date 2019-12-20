@@ -121,14 +121,11 @@ class Gene_Doddle_Model_Observer
                 exit;
             }
 
-            // Set the store ID within the session
-            // @todo save full store data to session here ?
-            Mage::getSingleton('checkout/session')->setDoddleStoreId($storeId)->setDoddleStoreName($store->getName());
-
+            // Set the store within the session
+            $this->getSession()->setDoddleStore($store);
         } else {
-
             // Otherwise make sure this data isn't present in the session
-            Mage::getSingleton('checkout/session')->unsDoddleStoreId()->unsDoddleStoreName();
+            $this->getSession()->unsDoddleStore();
         }
 
         return $this;
@@ -153,32 +150,22 @@ class Gene_Doddle_Model_Observer
         // Has the use selected to use Doddle?
         if($order->getShippingMethod() == Mage::helper('gene_doddle')->getShippingMethodCode()) {
 
-            // Retrieve the store ID from the session
-            $storeId = Mage::getSingleton('checkout/session')->getDoddleStoreId();
+            /* @var $selectedStore Gene_Doddle_Model_Store */
+            $selectedStore = $this->getSession()->getDoddleStore();
 
-            // Verify we've got a store ID
-            if(!$storeId) {
+            // Verify we've got a store
+            if(!$selectedStore) {
                 Mage::throwException(Mage::helper('gene_doddle')->__('No store has been selected for collection from Doddle, please try again.'));
             }
 
-            // @todo retrieve full store data from session here ?
-            // Load up the store
-            /* @var $store Gene_Doddle_Model_Store */
-            $store = Mage::getModel('gene_doddle/store')->load($storeId);
-
-            // Check the store can load
-            if(!$store) {
-                Mage::throwException(Mage::helper('gene_doddle')->__('The Doddle store you\'ve selected is no longer available, please try and locate your nearest store again.'));
-            }
-
             // Change the address shipping address
-            $order->getShippingAddress()->addData($store->getMagentoShippingAddress());
+            $order->getShippingAddress()->addData($selectedStore->getMagentoShippingAddress());
 
             // This order can no longer be shipped partially as Doddle has to receive it all at once
             $order->setCanShipPartially(0)->setCanShipPartiallyItem(0);
 
             // Update the quote
-            $quote->getShippingAddress()->addData($store->getMagentoShippingAddress());
+            $quote->getShippingAddress()->addData($selectedStore->getMagentoShippingAddress());
 
         }
 

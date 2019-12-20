@@ -63,10 +63,12 @@ class Gene_Doddle_Model_Carrier
         $rate->setCarrier($this->_code);
         $rate->setMethod('collection');
 
+        $selectedStore = Mage::getSingleton('checkout/session')->getDoddleStore();
+
         // If we're saving the payment, it means we're generating the review step
-        if(Mage::app()->getRequest()->getActionName() == 'savePayment' && Mage::getSingleton('checkout/session')->getDoddleStoreName()) {
+        if(Mage::app()->getRequest()->getActionName() == 'savePayment' && $selectedStore) {
             $rate->setCarrierTitle(Mage::helper('gene_doddle')->__('Collect from Doodle'));
-            $rate->setMethodTitle(Mage::getSingleton('checkout/session')->getDoddleStoreName());
+            $rate->setMethodTitle($selectedStore->getName());
         } else {
             $rate->setCarrierTitle($this->getConfigData('title'));
             $rate->setMethodTitle($this->getConfigData('name'));

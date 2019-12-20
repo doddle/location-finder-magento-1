@@ -6,26 +6,26 @@
     </dt>
     <dd class="complete">
         <?php if ($this->getShippingMethod()): ?>
+            <?php if ($selectedStore = Mage::getSingleton('checkout/session')->getDoddleStore()): ?>
+                <!-- Include our Doddle logo -->
+                <img src="<?php echo $this->getSkinUrl('images/gene/doddle/logo.png'); ?>" class="doddle-sidebar-logo" border="0"/>
+                <p><?php echo $this->__('Collection from: %s', $selectedStore->getName()); ?></p>
 
-            <!-- Include our Doddle logo -->
-            <img src="<?php echo $this->getSkinUrl('images/gene/doddle/logo.png'); ?>" class="doddle-sidebar-logo" border="0"/>
-            <p><?php echo $this->__('Collection from: %s', Mage::getSingleton('checkout/session')->getDoddleStoreName()); ?></p>
-
-            <?php $_excl = $this->getShippingPriceExclTax(); ?>
-            <?php $_incl = $this->getShippingPriceInclTax(); ?>
-            <?php if(floatval(preg_replace("/([^0-9\\.])/i", "", $_incl)) == 0): ?>
-                <strong><?php echo $this->__('FREE'); ?></strong>
-            <?php else: ?>
-                <?php if ($this->helper('tax')->displayShippingPriceIncludingTax()): ?>
-                    <?php echo $_incl; ?>
+                <?php $_excl = $this->getShippingPriceExclTax(); ?>
+                <?php $_incl = $this->getShippingPriceInclTax(); ?>
+                <?php if(floatval(preg_replace("/([^0-9\\.])/i", "", $_incl)) == 0): ?>
+                    <strong><?php echo $this->__('FREE'); ?></strong>
                 <?php else: ?>
-                    <?php echo $_excl; ?>
-                <?php endif; ?>
-                <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
-                    (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
+                    <?php if ($this->helper('tax')->displayShippingPriceIncludingTax()): ?>
+                        <?php echo $_incl; ?>
+                    <?php else: ?>
+                        <?php echo $_excl; ?>
+                    <?php endif; ?>
+                    <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
+                        (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
+                    <?php endif; ?>
                 <?php endif; ?>
             <?php endif; ?>
-
         <?php else: ?>
             <?php echo $this->__('Shipping method has not been selected yet') ?>
         <?php endif; ?>
