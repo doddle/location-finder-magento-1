@@ -133,7 +133,7 @@
             </checkout_controller_onepage_save_shipping_method>
 
             <!-- Just before the quote is submitted we want to swap the shipping address to the Doddle store -->
-            <sales_model_service_quote_submit_success>
+            <sales_model_service_quote_submit_before>
                 <observers>
                     <gene_doddle_swap_address>
                         <type>singleton</type>
@@ -141,7 +141,7 @@
                         <method>changeToDoddleAddress</method>
                     </gene_doddle_swap_address>
                 </observers>
-            </sales_model_service_quote_submit_success>
+            </sales_model_service_quote_submit_before>
 
         </events>
     </frontend>
