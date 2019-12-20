@@ -32,7 +32,7 @@ $closestStores = $this->getClosestStores();
                 <td width="8%" class="more-information-td">
                     <a href="#" title="More Information" class="doddle-info">i</a>
                     <div class="more-information">
-                        <?php if($openingTimes = $store->getOpeningTimes()): ?>
+                        <?php if($openingTimes = $store->getOpeningHours()): ?>
                             <div class="opening-times">
                                 <h3><?php echo $this->__('Opening Times:'); ?></h3>
                                 <table width="100%" class="opening-times-table">

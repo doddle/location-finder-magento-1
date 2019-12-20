@@ -147,46 +147,41 @@ class Gene_Doddle_Model_Store extends Varien_Object
 
     /**
      * Return the stores opening times as a string
-     * @todo refactor for v3 data format
-     *
-     * @return bool|array
+     * 
+     * @return array|bool
      */
-    public function getOpeningTimes()
+    public function getOpeningHours()
     {
-        if($this->getId()) {
+        $response = false;
 
-            // Retrieve the opening times
-            $openingTimes = $this->getData('openingTimes');
-
-            // Verify we have some opening times
-            if(!empty($openingTimes)) {
-
-                // Build up the array
+        if ($this->getId()) {
+            $openingHours = $this->getData('openingHours');
+            // Verify we have an array of opening hours
+            if (is_array($openingHours)) {
                 $response = array();
-                foreach($openingTimes as $day => $openingTime) {
 
-                    // Build the time up
-                    $time = $openingTime['open'] . ' - ' . $openingTime['close'];
-
-                    // If the store is closed on this day make it known
-                    if($openingTime['open'] == '00:00' && $openingTime['close'] == '00:00') {
-                        $time = false;
+                // Per day, if the store is open, format the opening times or default to 'false'
+                foreach ($openingHours as $day => $data) {
+                    $times = false;
+                    if (isset($data['isOpen']) && $data['isOpen'] == true && isset($data['hours'])) {
+                        foreach ($data['hours'] as $hours) {
+                            // Append line break if more than one opening time on a day
+                            if ($times != false) {
+                                $times .= '<br />';
+                            }
+                            $times .= sprintf('%s - %s', reset($hours), end($hours));
+                        }
                     }
 
                     $response[] = array(
                         'label' => ucfirst(preg_replace('/\B([A-Z])/', ' $1', $day)),
-                        'value' => $time
+                        'value' => $times
                     );
                 }
-
-                // Implode with a br
-                return $response;
-
             }
-
         }
 
-        return false;
+        return $response;
     }
 
     /**
