@@ -25,8 +25,7 @@ class Gene_Doddle_Block_Onepage_Shipping_Method_Doddle_Table extends Mage_Core_B
      */
     protected function getClosestStores()
     {
-        // @todo pass these params via controller?
-        return $this->_getStoreApi()->getClosestStores($this->getRequest()->getParam('lat'), $this->getRequest()->getParam('long'));
+        return $this->_getStoreApi()->getClosestStores($this->getLat(), $this->getLong());
     }
 
     /**

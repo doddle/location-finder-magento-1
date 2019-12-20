@@ -20,12 +20,19 @@ class Gene_Doddle_IndexController extends Mage_Core_Controller_Front_Action
         $lat = $this->getRequest()->getParam('lat');
 
         // Verify they're both set and not false
-        if(!$long || !$lat) {
+        if (!$long || !$lat) {
             return $this->returnAsJson(array('error' => $this->__('You must specify both latitude and longitude to use this action.')));
         }
 
         // Load up the layout
         $this->loadLayout();
+
+        // Pass lat/long params down to block
+        $block = $this->getLayout()->getBlock('root');
+        if ($block) {
+            $block->setLong($long);
+            $block->setLat($lat);
+        }
 
         // Return a formatted JSON response
         return $this->returnAsJson(array(
