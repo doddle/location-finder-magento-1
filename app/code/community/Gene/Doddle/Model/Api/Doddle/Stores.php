@@ -105,7 +105,6 @@ class Gene_Doddle_Model_Api_Doddle_Stores extends Gene_Doddle_Model_Api_Doddle_A
                 foreach ($response['resources'] as $resource) {
                     if ($resource['store']) {
                         // Move location info in to store data to ease retrieval from model
-                        // @todo review storing separately as per API response
                         if ($resource['locationInfo']) {
                             $resource['store']['locationInfo'] = $resource['locationInfo'];
                         }
