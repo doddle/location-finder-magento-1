@@ -15,8 +15,8 @@ $helper = $this->helper('gene_doddle');
 </div>
 
 <script type="text/javascript">
-    // @todo set email if available otherwise ID of email field if available
-    var emailAddress = "test@doddle.com";
+    // @todo confirm that empty string is ok here for no email set
+    var emailAddress = '<?php echo $this->getCustomerEmail() ?>';
 
     LocationFinder.init({
         root: 'doddle-box',
@@ -24,6 +24,7 @@ $helper = $this->helper('gene_doddle');
         apiSecret: '<?php echo $helper->getApiSecret() ?>',
         googleApiKey: '<?php echo $helper->getGoogleApiKey() ?>',
         emailAddress: emailAddress,
+        emailInputId: 'billing:email',
         merchantId: '<?php echo $helper->getMerchantId() ?>',
         callback: cb
     });

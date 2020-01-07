@@ -111,4 +111,11 @@ class Gene_Doddle_Block_Onepage_Shipping_Method_Doddle extends Mage_Core_Block_T
         return '';
     }
 
+    /**
+     * @return string
+     */
+    public function getCustomerEmail()
+    {
+        return (string) Mage::helper('customer')->getCustomer()->getEmail();
+    }
 }
