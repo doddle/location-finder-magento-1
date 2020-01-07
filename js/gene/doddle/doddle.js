@@ -86,21 +86,22 @@ Doddle.prototype = {
     handleSubmit: function() {
 
         // If the user presses enter within the input we return false
-        $('doddle-search-input').observe('keypress', function(e) {
+        if ($('doddle-search-input')) {
+            $('doddle-search-input').observe('keypress', function (e) {
 
-            // Look for keyCode 13 (which is enter)
-            if(e.keyCode == 13) {
+                // Look for keyCode 13 (which is enter)
+                if (e.keyCode == 13) {
 
-                // Make the request
-                this.getPositionFromAddress($('doddle-search-input').value, $('doddle-search-button'));
+                    // Make the request
+                    this.getPositionFromAddress($('doddle-search-input').value, $('doddle-search-button'));
 
-                if (e.preventDefault) {
-                    e.preventDefault();
+                    if (e.preventDefault) {
+                        e.preventDefault();
+                    }
+                    return false;
                 }
-                return false;
-            }
-        }.bind(this));
-
+            }.bind(this));
+        }
     },
 
     /**

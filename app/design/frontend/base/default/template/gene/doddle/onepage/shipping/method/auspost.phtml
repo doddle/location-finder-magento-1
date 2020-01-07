@@ -1,0 +1,68 @@
+<?php
+/* @var $this Gene_Doddle_Block_Onepage_Shipping_Method_Doddle */
+
+/** @var $helper Gene_Doddle_Helper_Data */
+$helper = $this->helper('gene_doddle');
+?>
+
+<?php if ($this->onlyDoddle()): ?>
+    <div style="display: none;">
+        <input name="shipping_method" type="radio" value="<?php echo Mage::helper('gene_doddle')->getShippingMethodCode(); ?>" id="s_method_<?php echo Mage::helper('gene_doddle')->getShippingMethodCode(); ?>" checked="checked" class="radio" />
+    </div>
+<?php endif; ?>
+
+<div id="doddle-box"<?php echo (!$this->onlyDoddle() ? ' style="display: none;"' : ''); ?>>
+</div>
+
+<script type="text/javascript">
+    // @todo set email if available otherwise ID of email field if available
+    var emailAddress = "test@doddle.com";
+
+    LocationFinder.init({
+        root: 'doddle-box',
+        apiKey: '<?php echo $helper->getApiKey() ?>',
+        apiSecret: '<?php echo $helper->getApiSecret() ?>',
+        googleApiKey: '<?php echo $helper->getGoogleApiKey() ?>',
+        emailAddress: emailAddress,
+        merchantId: '<?php echo $helper->getMerchantId() ?>',
+        callback: cb
+    });
+
+    /**
+     * This is called when a location is selected in the AusPost widget
+     * @todo Can the store ID be passed in here as part of the params ?
+     *
+     * @param data
+     */
+    function cb(data) {
+        // @todo set this hardcoded value to that of the selected location
+        $(shippingMethod.form).insert({
+            bottom: new Element('input', {
+                type: 'hidden',
+                name:'doddle-store',
+                value: '548f2d9e-c6a8-44f9-8d64-1442e680f658'
+            })
+        });
+
+        shippingMethod.save();
+    }
+
+    // Observe shipping method choices
+    doddle.observeShippingMethods();
+
+    <?php if ($this->onlyDoddle()): ?>
+    if ($('shipping-progress-opcheckout') != undefined) {
+        $('shipping-progress-opcheckout').hide();
+    }
+    <?php endif; ?>
+
+    // Add our new validation type
+    Validation.add('validate-doddle', '<?php echo $this->__('Please select your Doddle collection store to continue.'); ?>', function(v) {
+        // Check to see whether a method has been selected
+        if($$('[name=doddle-store]:checked').first() == undefined) {
+            doddle.throwError('<?php echo $this->__('Please select your Doddle collection store to continue.'); ?>');
+            return false;
+        }
+        return true;
+    });
+</script>

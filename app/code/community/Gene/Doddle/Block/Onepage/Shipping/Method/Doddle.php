@@ -18,11 +18,23 @@ class Gene_Doddle_Block_Onepage_Shipping_Method_Doddle extends Mage_Core_Block_T
         // Run any parent functionality
         parent::_construct();
 
-        // Force set our template
-        $this->setTemplate('gene/doddle/onepage/shipping/method/doddle.phtml');
+        // Force set our template to the relevant variant
+        $this->setTemplateForVariant();
 
         // Just in case anything is chaining
         return $this;
+    }
+
+    protected function setTemplateForVariant()
+    {
+        /** @var Gene_Doddle_Helper_Data $helper */
+        $helper = Mage::helper('gene_doddle');
+
+        if ($helper->getVariant() == Gene_Doddle_Model_System_Config_Variant::AUSTRALIA_POST) {
+            $this->setTemplate('gene/doddle/onepage/shipping/method/auspost.phtml');
+        } else {
+            $this->setTemplate('gene/doddle/onepage/shipping/method/doddle.phtml');
+        }
     }
 
     /**

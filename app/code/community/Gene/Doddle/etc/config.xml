@@ -26,6 +26,11 @@
             <gene_doddle>
                 <class>Gene_Doddle_Block</class>
             </gene_doddle>
+            <page>
+                <rewrite>
+                    <html_head>Gene_Doddle_Block_Html_Head</html_head>
+                </rewrite>
+            </page>
         </blocks>
 
         <helpers>
@@ -177,6 +182,7 @@
                 <collection_lead_time>2</collection_lead_time>
 
                 <environment>staging</environment>
+                <variant>doddle_uk</variant>
 
                 <!-- @todo should be a separate staging stores config here? -->
                 <stores_api><![CDATA[https://apigw.apac-preprod.doddle.tech/v3/]]></stores_api>
