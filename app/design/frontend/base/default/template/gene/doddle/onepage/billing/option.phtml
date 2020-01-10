@@ -1,8 +1,6 @@
 <?php
 /** @var $helper Gene_Doddle_Helper_Data */
 $helper = $this->helper('gene_doddle');
-
-$logoSrc = $helper->getVariantLogoSrc();
 ?>
 
 <li class="control doddle-control">
@@ -14,5 +12,5 @@ $logoSrc = $helper->getVariantLogoSrc();
     <?php endif; ?>
 
     <input type="radio" name="billing[use_for_shipping]" id="billing:use_for_doddle" value="doddle" title="Collect From Doddle" class="radio" />
-    <label for="billing:use_for_doddle"><span class="ship-to"><?php echo $this->__('Collect From'); ?></span> <img src="<?php echo $this->getSkinUrl($logoSrc) ?>" class="doddle-logo" /></label>
+    <label for="billing:use_for_doddle"><span class="ship-to"><?php echo $this->__('Collect From'); ?></span> <img src="<?php echo $this->getSkinUrl($helper->getVariantLogoSrc()) ?>" class="doddle-logo" /></label>
 </li>

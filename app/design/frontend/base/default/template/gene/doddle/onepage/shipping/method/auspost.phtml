@@ -31,21 +31,26 @@ $helper = $this->helper('gene_doddle');
 
     /**
      * This is called when a location is selected in the AusPost widget
-     * @todo Can the store ID be passed in here as part of the params ?
      *
      * @param data
      */
     function cb(data) {
-        // @todo set this hardcoded value to that of the selected location
-        $(shippingMethod.form).insert({
-            bottom: new Element('input', {
-                type: 'hidden',
-                name:'doddle-store',
-                value: '548f2d9e-c6a8-44f9-8d64-1442e680f658'
-            })
-        });
-
-        shippingMethod.save();
+        if (data.storeId) {
+            // Remove existing store ID from form
+            if ($('doddle-store-selection')) {
+                $('doddle-store-selection').remove();
+            }
+            // Add selected store ID to form
+            $(shippingMethod.form).insert({
+                bottom: new Element('input', {
+                    id: 'doddle-store-selection',
+                    type: 'hidden',
+                    name: 'doddle-store',
+                    value: data.storeId
+                })
+            });
+            shippingMethod.save();
+        }
     }
 
     // Observe shipping method choices
