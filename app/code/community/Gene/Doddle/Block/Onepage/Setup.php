@@ -28,4 +28,15 @@ class Gene_Doddle_Block_Onepage_Setup extends Mage_Core_Block_Template
         return Mage::getStoreConfig('carriers/gene_doddle/google_api_key');
     }
 
+    /**
+     * @return bool
+     */
+    public function isGoogleMapsJsRequired()
+    {
+        if (Mage::helper('gene_doddle')->getVariant() == Gene_Doddle_Model_System_Config_Variant::AUSTRALIA_POST) {
+            return false;
+        }
+
+        return true;
+    }
 }

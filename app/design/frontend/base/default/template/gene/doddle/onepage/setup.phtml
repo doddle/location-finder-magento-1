@@ -1,4 +1,8 @@
-<?php if($googleApiKey = $this->getGoogleApiKey()): ?>
+<?php
+/* @var $this Gene_Doddle_Block_Onepage_Setup */
+?>
+
+<?php if ($this->isGoogleMapsJsRequired() && $googleApiKey = $this->getGoogleApiKey()): ?>
 <script type="text/javascript"
         src="https://maps.googleapis.com/maps/api/js?key=<?php echo $googleApiKey; ?>">
 </script>
