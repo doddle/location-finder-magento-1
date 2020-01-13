@@ -2,8 +2,6 @@
 class Gene_Doddle_Block_Html_Head extends Mage_Page_Block_Html_Head
 {
     /**
-     * @todo review adding the Location Finder code to the module as a way to work around this
-     *
      * This rewrite is neccessary to ensure the Doddle Location Finder script is included before
      * the Prototype framework due to an incompatibility between the two codebases, relating to
      * the map() function definition in the Doddle code.
@@ -18,7 +16,7 @@ class Gene_Doddle_Block_Html_Head extends Mage_Page_Block_Html_Head
     }
 
     /**
-     * @todo confirm URLs and implement staging/live here
+     * @todo confirm URL for this
      * @return string
      */
     public function getDoddleLocationFinderJs()

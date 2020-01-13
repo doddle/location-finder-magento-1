@@ -41,8 +41,6 @@ class Gene_Doddle_Model_Api_Doddle_Stores extends Gene_Doddle_Model_Api_Doddle_A
                     'Content-Type' => 'application/json'
                 );
 
-                // @todo get size from config ?
-                // @todo include distance and unit here (also from config) ?
                 $call = sprintf(
                     'stores/latitude/%s/longitude/%s?companyId=%s&limit=%s&services=COLLECTIONS&includeOpeningHours=true',
                     $lat,
