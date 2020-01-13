@@ -184,10 +184,9 @@
                 <environment>staging</environment>
                 <variant>doddle_uk</variant>
 
-                <!-- @todo should be a separate staging stores config here? -->
-                <stores_api><![CDATA[https://apigw.apac-preprod.doddle.tech/v3/]]></stores_api>
-                <staging_api><![CDATA[https://apigw.apac-preprod.doddle.tech/v1/]]></staging_api>
-                <production_api><![CDATA[https://apigw.apac-preprod.doddle.tech/v1/]]></production_api>
+                <stores_api><![CDATA[https://api.doddle.it/v3/]]></stores_api>
+                <staging_api><![CDATA[https://stage-apigw.doddle.it/v1/]]></staging_api>
+                <production_api><![CDATA[https://apigw.doddle.it/v1/]]></production_api>
 
                 <!-- We force this shipping method to be last to be next to our injected block -->
                 <sort_order>9999999999</sort_order>
