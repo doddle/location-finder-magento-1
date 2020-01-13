@@ -168,7 +168,7 @@
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
                             <comment><![CDATA[
-                                The URL path for the staging API. (eg. https://api.doddle.it/v1/)
+                                The URL path for the Stores API. (eg. https://apigw.apac-prod.doddle.tech/v3/)
                             ]]></comment>
                             <depends>
                                 <configure_api>1</configure_api>
@@ -183,7 +183,7 @@
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
                             <comment><![CDATA[
-                                The URL path for the staging API. (eg. https://stage-apigw.doddle.it/v1/)
+                                The URL path for the staging API. (eg. https://apigw.apac-preprod.doddle.tech/v1/)
                             ]]></comment>
                             <depends>
                                 <configure_api>1</configure_api>
@@ -198,7 +198,7 @@
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
                             <comment><![CDATA[
-                                The URL path for the production API. (eg. https://apigw.doddle.it/v1/)
+                                The URL path for the production API. (eg. https://apigw.apac-prod.doddle.tech/v1/)
                             ]]></comment>
                             <depends>
                                 <configure_api>1</configure_api>
