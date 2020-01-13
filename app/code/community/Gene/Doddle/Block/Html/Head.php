@@ -1,6 +1,9 @@
 <?php
 class Gene_Doddle_Block_Html_Head extends Mage_Page_Block_Html_Head
 {
+    const LIVE_AUSPOST_WIDGET_URL = 'https://collect.auspost.com.au/LocationFinder.min.js';
+    const TEST_AUSPOST_WIDGET_URL = 'https://test.collect.auspost.com.au/LocationFinder.min.js';
+
     /**
      * This rewrite is neccessary to ensure the Doddle Location Finder script is included before
      * the Prototype framework due to an incompatibility between the two codebases, relating to
@@ -16,12 +19,10 @@ class Gene_Doddle_Block_Html_Head extends Mage_Page_Block_Html_Head
     }
 
     /**
-     * @todo confirm URL for this
      * @return string
      */
     public function getDoddleLocationFinderJs()
     {
-        $source = 'https://test.collect.auspost.com.au/LocationFinder.min.js';
-        return sprintf('<script type="text/javascript" src="%s"></script>', $source);
+        return sprintf('<script type="text/javascript" src="%s"></script>', self::LIVE_AUSPOST_WIDGET_URL);
     }
 }
