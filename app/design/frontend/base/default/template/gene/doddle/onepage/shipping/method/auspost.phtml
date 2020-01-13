@@ -16,7 +16,7 @@ $helper = $this->helper('gene_doddle');
 
 <script type="text/javascript">
     // @todo confirm that empty string is ok here for no email set
-    var emailAddress = '<?php echo $this->getCustomerEmail() ?>';
+    var emailAddress = '<?php echo $this->escapeHtml($this->getCustomerEmail()) ?>';
 
     LocationFinder.init({
         root: 'doddle-box',
