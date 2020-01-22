@@ -8,6 +8,7 @@ class Gene_Doddle_Helper_Data extends Mage_Core_Helper_Abstract
 {
     const API_KEY_XML_PATH     = 'carriers/gene_doddle/api_key';
     const API_SECRET_XML_PATH  = 'carriers/gene_doddle/api_secret';
+    const ENVIRONMENT_XML_PATH = 'carriers/gene_doddle/environment';
     const GOOGLE_API_XML_PATH  = 'carriers/gene_doddle/google_api_key';
     const MERCHANT_ID_XML_PATH = 'carriers/gene_doddle/retailer_id';
     const VARIANT_XML_PATH     = 'carriers/gene_doddle/variant';
@@ -64,6 +65,14 @@ class Gene_Doddle_Helper_Data extends Mage_Core_Helper_Abstract
     public function getVariant()
     {
         return (string) Mage::getStoreConfig(self::VARIANT_XML_PATH);
+    }
+
+    /**
+     * @return string
+     */
+    public function getEnvironment()
+    {
+        return (string) Mage::getStoreConfig(self::ENVIRONMENT_XML_PATH);
     }
 
     /**
