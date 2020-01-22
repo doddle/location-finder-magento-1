@@ -37,6 +37,10 @@
         "skin/frontend/base/default/images/gene/doddle"
       ],
       [
+        "skin/adminhtml/default/default/images/gene/doddle",
+        "skin/adminhtml/default/default/images/gene/doddle"
+      ],
+      [
         "skin/frontend/rwd/default/css/gene/doddle",
         "skin/frontend/rwd/default/css/gene/doddle"
       ],

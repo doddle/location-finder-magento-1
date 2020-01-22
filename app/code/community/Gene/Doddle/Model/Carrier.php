@@ -67,7 +67,8 @@ class Gene_Doddle_Model_Carrier
 
         // If we're saving the payment, it means we're generating the review step
         if(Mage::app()->getRequest()->getActionName() == 'savePayment' && $selectedStore) {
-            $rate->setCarrierTitle(Mage::helper('gene_doddle')->__('Collect from Doodle'));
+            $variantName = Mage::helper('gene_doddle')->getVariantName();
+            $rate->setCarrierTitle(Mage::helper('gene_doddle')->__('Collect from %s', $variantName));
             $rate->setMethodTitle($selectedStore->getName());
         } else {
             $rate->setCarrierTitle($this->getConfigData('title'));

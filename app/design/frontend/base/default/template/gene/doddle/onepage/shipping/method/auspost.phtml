@@ -16,6 +16,7 @@ $helper = $this->helper('gene_doddle');
 
 <script type="text/javascript">
     var emailAddress = '<?php echo $this->escapeHtml($this->getCustomerEmail()) ?>';
+    var emailInputId = emailAddress.length ? null : 'billing:email';
 
     LocationFinder.init({
         root: 'doddle-box',
@@ -23,7 +24,7 @@ $helper = $this->helper('gene_doddle');
         apiSecret: '<?php echo $helper->getApiSecret() ?>',
         googleApiKey: '<?php echo $helper->getGoogleApiKey() ?>',
         emailAddress: emailAddress,
-        emailInputId: 'billing:email',
+        emailInputId: emailInputId,
         merchantId: '<?php echo $helper->getMerchantId() ?>',
         callback: cb
     });

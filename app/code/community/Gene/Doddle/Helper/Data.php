@@ -70,6 +70,16 @@ class Gene_Doddle_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * @return string
      */
+    public function getVariantName()
+    {
+        $variant = $this->getVariant();
+
+        return str_replace('_', ' ', uc_words($variant));
+    }
+
+    /**
+     * @return string
+     */
     public function getEnvironment()
     {
         return (string) Mage::getStoreConfig(self::ENVIRONMENT_XML_PATH);

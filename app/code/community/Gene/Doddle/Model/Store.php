@@ -107,7 +107,7 @@ class Gene_Doddle_Model_Store extends Varien_Object
     {
         if ($this->getId()) {
             $address = array(
-                'firstname' => 'Doddle',
+                'firstname' => Mage::helper('gene_doddle')->getVariantName(),
                 'lastname' => $this->getName(),
                 'company' => '',
                 'street' => $this->getStreetAddressString(),
