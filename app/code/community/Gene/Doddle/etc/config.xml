@@ -185,7 +185,7 @@
                 <variant>doddle_uk</variant>
 
                 <stores_api><![CDATA[https://apigw.apac-prod.doddle.tech/v3/]]></stores_api>
-                <staging_api><![CDATA[https://apigw.apac-preprod.doddle.tech/v1/]]></staging_api>
+                <staging_api><![CDATA[https://apigw.eu-staging.doddle.tech/v1/]]></staging_api>
                 <production_api><![CDATA[https://apigw.apac-prod.doddle.tech/v1/]]></production_api>
 
                 <!-- We force this shipping method to be last to be next to our injected block -->
