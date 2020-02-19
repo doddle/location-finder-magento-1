@@ -173,10 +173,10 @@
             <gene_doddle>
                 <active>0</active>
                 <model>gene_doddle/carrier</model>
-                <title>Collect from your local train station</title>
+                <title>Collect at convenient locations</title>
 
                 <name>Doddle</name>
-                <more_information><![CDATA[<h3>What is Doddle?</h3><p>Doddle fits in with your life. No more waiting. No more missed deliveries. With Doddle shops in and around train stations you can Doddle (our language for collecting, sending or returning) your parcel on the way to, or from, work, while you’re out shopping or simply whenever you’re passing.</p>]]></more_information>
+                <more_information><![CDATA[<h3>What is Doddle?</h3><p>Doddle helps retailers and carriers deliver best in class customer experiences around pick-up and returns</p>]]></more_information>
                 <type>I</type>
                 <price>5.00</price>
                 <collection_lead_time>2</collection_lead_time>
