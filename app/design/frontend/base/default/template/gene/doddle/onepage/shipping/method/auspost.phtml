@@ -34,8 +34,8 @@ $helper = $this->helper('gene_doddle');
      *
      * @param data
      */
-    function cb(data) {
-        if (data.storeId) {
+    function cb(data, storeData) {
+        if (storeData.storeId) {
             // Remove existing store ID from form
             if ($('doddle-store-selection')) {
                 $('doddle-store-selection').remove();
@@ -46,7 +46,7 @@ $helper = $this->helper('gene_doddle');
                     id: 'doddle-store-selection',
                     type: 'hidden',
                     name: 'doddle-store',
-                    value: data.storeId
+                    value: storeData.storeId
                 })
             });
             shippingMethod.save();

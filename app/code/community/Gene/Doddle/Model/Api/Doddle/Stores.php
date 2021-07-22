@@ -28,9 +28,9 @@ class Gene_Doddle_Model_Api_Doddle_Stores extends Gene_Doddle_Model_Api_Doddle_A
         $cacheId = sprintf('%s_%s_%s', self::DODDLE_STORE_CACHE_KEY, $lat, $long);
 
         // Attempt to load the stores from the cache
-        if ($stores = $this->getCache()->load($cacheId)) {
+        if ($cachedStores = $this->getCache()->load($cacheId)) {
             // If they load from the cache then use those values
-            $stores = Mage::helper('core')->jsonDecode($stores);
+            $stores = Mage::helper('core')->jsonDecode($cachedStores);
         } else {
             // Retrieve an access token from the API
             if ($accessToken = parent::getAccessToken($this->buildScope('stores:read', $this->getStoreId()))) {
@@ -146,7 +146,6 @@ class Gene_Doddle_Model_Api_Doddle_Stores extends Gene_Doddle_Model_Api_Doddle_A
 
         // Loop through each store
         foreach ($stores as $store) {
-
             // Create a new instance of the store model and append the data
             $storeItem = Mage::getModel('gene_doddle/store')->addData($store);
 

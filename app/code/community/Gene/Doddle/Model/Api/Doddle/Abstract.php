@@ -167,12 +167,11 @@ abstract class Gene_Doddle_Model_Api_Doddle_Abstract extends Mage_Core_Model_Abs
         // Check the status of the request
         if($response->getStatus() == 200) {
 
-            // Retrieve the raw body, which should be JSON
-            $body = $response->getRawBody();
+            // Retrieve the response body, which should be JSON
+            $body = $response->getBody();
 
             // Catch any errors
             try {
-
                 // Attempt to decode the response
                 $decodedBody = Mage::helper('core')->jsonDecode($body, Zend_Json::TYPE_ARRAY);
 
@@ -186,9 +185,8 @@ abstract class Gene_Doddle_Model_Api_Doddle_Abstract extends Mage_Core_Model_Abs
             }
 
         } else {
-
             // If the request is anything but a 200 response make a log of it
-            $this->_log($response->getStatus() . "\n" . $response->getRawBody());
+            $this->_log($response->getStatus() . "\n" . $response->getBody());
         }
 
         return false;
